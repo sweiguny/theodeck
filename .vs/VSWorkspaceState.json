@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\com.sweiguny.theodeck.sdPlugin",
+    "\\com.sweiguny.theodeck.sdPlugin\\imgs\\actions",
+    "\\com.sweiguny.theodeck.sdPlugin\\ui",
+    "\\src",
+    "\\src\\actions"
+  ],
+  "SelectedNode": "\\src\\actions\\increment-counter.ts",
+  "PreviewInSolutionExplorer": false
+}

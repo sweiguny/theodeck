@@ -1,0 +1,42 @@
+{
+    "scripts": {
+        "build": "streamdeck validate com.sweiguny.theodeck.sdPlugin && npm run create-icon && npm run compile-ahk && rollup -c",
+        "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart com.sweiguny.theodeck\"",
+        "show-cwd": "echo %CD% || pwd",
+        "create-icon": "magick ./com.sweiguny.theodeck.sdPlugin/imgs/plugin/ico/logo_*.ico ./com.sweiguny.theodeck.sdPlugin/imgs/plugin/TheoDeck.ico",
+        "compile-ahk": "powershell -File compile-ahk.ps1",
+        "postinstall": "node ./postinstall.ts"
+    },
+    "type": "module",
+    "devDependencies": {
+        "@elgato/cli": "^1.1.1",
+        "@rollup/plugin-commonjs": "^28.0.0",
+        "@rollup/plugin-node-resolve": "^15.2.2",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-typescript": "^12.1.0",
+        "@tsconfig/node20": "^20.1.2",
+        "@types/ini": "^4.1.1",
+        "@types/js-yaml": "^4.0.9",
+        "@types/node": "~20.15.0",
+        "@types/usb": "^2.0.5",
+        "@types/ws": "^8.18.1",
+        "rollup": "^4.39.0",
+        "tslib": "^2.6.2",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@elgato/streamdeck": "^1.0.0",
+        "@imagemagick/magick-wasm": "^0.0.34",
+        "@rollup/plugin-json": "^6.1.0",
+        "canvas": "^3.1.0",
+        "ini": "^5.0.0",
+        "js-yaml": "^4.1.0",
+        "open": "^10.1.0",
+        "usb": "^2.15.0",
+        "uuid": "^11.1.0"
+    },
+    "engines": {
+        "imagemagick": "7.x",
+        "autohotkey": "2.x"
+    }
+}

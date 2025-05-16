@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Start Zoom Meeting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="meetingId">Meeting-ID</label>
+    <input type="text" id="meetingId" placeholder="Enter Meeting ID" />
+
+    <label for="meetingPw">Meeting-PW</label>
+    <input type="text" id="meetingPw" placeholder="Enter Meeting PW" />
+
+    <button id="saveButton">Speichern</button>
+
+    <script>
+        // Verbindung zum Stream Deck Plugin herstellen
+        const websocket = new WebSocket(`ws://${window.location.host}`);
+
+        websocket.onopen = () => {
+            console.log("WebSocket connected");
+            // Anfrage an das Plugin senden, um aktuelle Einstellungen zu laden
+            const payload = {
+                event: "getSettings",
+                context: "{{context}}" // Platzhalter wird vom Stream Deck ersetzt
+            };
+            websocket.send(JSON.stringify(payload));
+        };
+
+        websocket.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            if (message.event === "didReceiveSettings") {
+                const settings = message.payload.settings;
+                document.getElementById("meetingId").value = settings.meetingId || "";
+                document.getElementById("meetingPw").value = settings.meetingPw || "";
+            }
+        };
+
+        document.getElementById("saveButton").addEventListener("click", () => {
+            const meetingId = document.getElementById("meetingId").value;
+            const meetingPw = document.getElementById("meetingPw").value;
+
+            const payload = {
+                event: "setSettings",
+                context: "{{context}}", // Platzhalter wird vom Stream Deck ersetzt
+                payload: {
+                    meetingId,
+                    meetingPw
+                }
+            };
+            websocket.send(JSON.stringify(payload));
+        });
+    </script>
+</body>
+
+</html>

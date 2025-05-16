@@ -1,0 +1,87 @@
+{
+	"Name": "TheoDeck",
+	"Version": "0.1.0.0",
+	"Author": "sweiguny",
+	"UUID": "com.sweiguny.theodeck",
+	"Category": "TheoDeck",
+	"CategoryIcon": "imgs/plugin/TheoDeck",
+	"CodePath": "bin/plugin.js",
+	"Description": "This Plugin is here to simplify handling of Zoom Meetings in combination with JW Library and allows to control a SMTAV PTZ camera.",
+	"Icon": "imgs/plugin/TheoDeck",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.8"
+	},
+	"OS": [
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"ApplicationsToMonitor": {
+		"windows": [
+			"Zoom.exe",
+			"JWLibrary.exe",
+			"TheoDeck.exe"
+		]
+	},
+	"Profiles": [
+		{
+			"AutoInstall": true,
+			"DeviceType": 7,
+			"Name": "profiles/TheoDeck"
+		}
+	],
+	"Actions": [
+		{
+			"Name": "Counter",
+			"UUID": "com.sweiguny.theodeck.increment",
+			"Icon": "imgs/actions/counter/icon",
+			"Tooltip": "Displays a count, which increments by one on press.",
+			"PropertyInspectorPath": "ui/increment-counter.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "fromSDKtoAHK",
+			"UUID": "com.sweiguny.theodeck.from-sdk-to-ahk",
+			"Icon": "imgs/actions/send_msg",
+			"Tooltip": "Sends a test message from SDK to AHK.",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/send_msg",
+					"Title": "Send TestMessage from SDK to AHK"
+				}
+			]
+		},
+		{
+			"Name": "Start Zoom Meeting",
+			"UUID": "com.sweiguny.theodeck.start-zoom-meeting",
+			"Icon": "imgs/plugin/zoom",
+			"Tooltip": "Starts a Zoom Meeting",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/plugin/zoom"
+				}
+			],
+			"PropertyInspectorPath": "ui/start-zoom-meeting.html"
+		}
+	]
+}
