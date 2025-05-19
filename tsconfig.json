@@ -4,12 +4,13 @@
 		"customConditions": [
 			"node"
 		],
-		"module": "ES2022",
-		"moduleResolution": "Bundler",
+		"module": "ES2022", // "NodeNext",
+		"moduleResolution": "Bundler", // NodeNext
 		"noImplicitOverride": true
 	},
 	"include": [
-		"src/**/*.ts"
+		"src/**/*.ts",
+    	"postinstall.ts"
 	],
 	"exclude": [
 		"node_modules"

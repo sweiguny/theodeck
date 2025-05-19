@@ -1,5 +1,6 @@
 import streamDeck from "@elgato/streamdeck";
 import { StatusObject1 } from "../communication/StatusObject1";
+import { BaseState } from "./BaseState";
 
 class DynamicValue {
     private boolValue: boolean;
@@ -19,7 +20,7 @@ class DynamicValue {
     }
 }
 
-export class GlobalState1 {
+export class GlobalState1 extends BaseState {
     private static instance: GlobalState1;
     private static proxyInstance: any;
 
@@ -95,20 +96,20 @@ export class GlobalState1 {
     // }
 
     public assign(statusObject: StatusObject1): void {
-        const stateObject = statusObject.getState(); // Retrieve the 'internal' proxy
+        // const stateObject = statusObject.getState(); // Retrieve the 'internal' proxy
 
         this.suppressEventExecution(() => {
-            Object.keys(stateObject).forEach((key: string) => {
+            Object.keys(statusObject).forEach((key: string) => {
                 if (key in this.state) {
-                    (this as any)[key] = stateObject[key]; // Setze die Werte über den Proxy
+                    (this as any)[key] = (statusObject as any)[key];
                 }
             });
         });
     }
 
-    protected getState(): { [key: string]: boolean } {
-        return this.state;
-    }
+    // protected getState(): { [key: string]: boolean } {
+    //     return this.state;
+    // }
 
     protected suppressEventExecution(callback: () => void): void {
         this.suppressEvents = true;

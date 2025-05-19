@@ -1,11 +1,12 @@
 {
     "scripts": {
-        "build": "streamdeck validate com.sweiguny.theodeck.sdPlugin && npm run create-icon && npm run compile-ahk && rollup -c",
+        "build": "npm run create-icon && rollup -c && streamdeck validate com.sweiguny.theodeck.sdPlugin",
         "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart com.sweiguny.theodeck\"",
         "show-cwd": "echo %CD% || pwd",
         "create-icon": "magick ./com.sweiguny.theodeck.sdPlugin/imgs/plugin/ico/logo_*.ico ./com.sweiguny.theodeck.sdPlugin/imgs/plugin/TheoDeck.ico",
         "compile-ahk": "powershell -File compile-ahk.ps1",
-        "postinstall": "node ./postinstall.ts"
+        "preinstall": "tsc postinstall.ts --outDir . && ren postinstall.js postinstall.cjs",
+        "postinstall": "node ./postinstall.cjs && del postinstall.cjs"
     },
     "type": "module",
     "devDependencies": {
@@ -21,6 +22,7 @@
         "@types/usb": "^2.0.5",
         "@types/ws": "^8.18.1",
         "rollup": "^4.39.0",
+        "ts-node": "^10.9.2",
         "tslib": "^2.6.2",
         "typescript": "^5.2.2"
     },
